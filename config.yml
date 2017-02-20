@@ -1,0 +1,23 @@
+name: tasks
+version: v0
+threads_nb: 1
+heartbeat:
+    url: http://localhost:8800/
+    period: 60000
+log:
+    file: /tmp/tasks.log
+db:
+    mongo:
+        host:
+            local:
+                address: 'localhost:27017'
+        database:
+            db_test:
+                host: local
+                name: test
+        collection:
+            tasks:
+                database: db_test
+                name: tasks
+allowedTasks:
+    - someTask

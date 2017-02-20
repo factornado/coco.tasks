@@ -1,0 +1,185 @@
+{
+    "swaggerVersion": "1.2",
+    "resourcePath": "\/tasks",
+    "basePath": "\/api",
+    "apiVersion": "1.0",
+    "produces": ["*\/*", "application\/json"],
+    "apis": [
+        {
+            "path": "\/tasks\/info",
+            "operations": [
+                {
+                    "notes": "Get the information on the service's parameters.",
+                    "method": "GET",
+                    "responseMessages": [
+                        {"message": "OK", "code": 200},
+                        {"message": "Unauthorized", "code": 401},
+                        {"message": "Forbidden", "code": 403},
+                        {"message": "Not Found", "code": 404}
+                        ],
+                    "deprecated": false,
+                    "produces": ["application\/json"],
+                    "parameters": []
+                    }
+                ]
+            },
+        {
+            "path": "\/tasks\/heartbeat",
+            "operations": [
+                {
+                    "notes": "Tell the registry that the service is alive.",
+                    "method": "GET",
+                    "responseMessages": [
+                        {"message": "OK", "code": 200},
+                        {"message": "Unauthorized", "code": 401},
+                        {"message": "Forbidden", "code": 403},
+                        {"message": "Not Found", "code": 404}
+                        ],
+                    "deprecated": false,
+                    "produces": ["application\/json"],
+                    "parameters": []
+                    }
+                ]
+            },
+        {
+            "path": "\/tasks\/tasks\/{task}\/{key}",
+            "operations": [
+                {
+                    "summary": "Post a task to be done.",
+                    "notes": "Post a task to be done.",
+                    "method": "POST",
+                    "responseMessages": [
+                        {"message": "OK", "code": 200},
+                        {"message": "Unauthorized", "code": 401},
+                        {"message": "Forbidden", "code": 403},
+                        {"message": "Not Found", "code": 404},
+                        {"message": "Not Found", "code": 409},
+                        {"message": "Task unknown", "code": 410},
+                        {"message": "data is not JSON", "code": 501}
+                        ],
+                    "deprecated": false,
+                    "produces": ["application\/json"],
+                    "parameters": [
+                        {
+                            "name": "task",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "someTask",
+                            "description": "The task category."
+                            },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "day:2016-05-01",
+                            "description": "The task key : it has to be unique."
+                            },
+                        {
+                            "name": "body",
+                            "paramType": "body",
+                            "required": true,
+                            "defaultValue": "{\"day\":\"2016-05-01\"}",
+                            "description": "The month of the report."
+                            }
+                        ]
+                    }
+                ]
+            },
+        {
+            "path": "\/tasks\/tasks\/{task}",
+            "operations": [
+                {
+                    "summary": "Get a task that has not been done yet.",
+                    "notes": "Get a task that has not been done yet.",
+                    "method": "GET",
+                    "responseMessages": [
+                        {"message": "OK", "code": 200},
+                        {"message": "No task to do", "code": 204},
+                        {"message": "Unauthorized", "code": 401},
+                        {"message": "Forbidden", "code": 403},
+                        {"message": "Not Found", "code": 404},
+                        {"message": "Not Found", "code": 409},
+                        {"message": "Task unknown", "code": 410}
+                        ],
+                    "deprecated": false,
+                    "produces": ["application\/json"],
+                    "parameters": [
+                        {
+                            "name": "task",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "someTask",
+                            "description": "The taskname category."
+                            }
+                        ]
+                    }
+                ]
+            },
+        {
+                "path": "\/tasks\/tasks\/{task}\/{key}\/{status}\/{lastPost}",
+            "operations": [
+                {
+                    "summary": "Change a task status.",
+                    "notes": "Change a task status.",
+                    "method": "PUT",
+                    "responseMessages": [
+                        {"message": "OK", "code": 200},
+                        {"message": "Unauthorized", "code": 401},
+                        {"message": "Forbidden", "code": 403},
+                        {"message": "Not Found", "code": 404},
+                        {"message": "Not Found", "code": 409},
+                        {"message": "Task unknown", "code": 410},
+                        {"message": "Task unknown", "code": 411},
+                        {"message": "Task unknown", "code": 412}
+                        ],
+                    "deprecated": false,
+                    "produces": ["application\/json"],
+                    "parameters": [
+                        {
+                            "name": "task",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "someTask",
+                            "description": "The task category."
+                            },
+                        {
+                            "name": "key",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "day:2016-05-01",
+                            "description": "The task key : it has to be unique."
+                            },
+                        {
+                            "name": "status",
+                            "type": "string",
+                            "format": null,
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "done",
+                            "description": "The status to push: done|fail|todo."
+                            },
+                        {
+                            "name": "lastPost",
+                            "type": "string",
+                            "format": "int",
+                            "paramType": "path",
+                            "required": true,
+                            "defaultValue": "1893456000000000000",
+                            "description": "Task will be updated only if this is more recent than the last post datetime (in nano-seconds since epoch)."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
